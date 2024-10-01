@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab12_3</title>
+</head>
+<body>
+    <h1>Гра: Камінь, Ножиці, Папір</h1>
+    <p>Вибери: камінь, ножиці або папір?</p>
+    <button onclick="playGame()">Почати гру</button>
+    <p id="result"></p>
+    
+    <script>
+        function getComputerChoice() {
+            const choices = ['камінь', 'ножиці', 'папір'];
+            const randomIndex = Math.floor(Math.random() * 3);
+            return choices[randomIndex];
+        }
+
+        function determineWinner(playerChoice, computerChoice) {
+            switch (playerChoice) {
+                case 'камінь':
+                    switch (computerChoice) {
+                        case 'камінь': return "Нічия!";
+                        case 'ножиці': return "Ти виграв!";
+                        case 'папір': return "Ти програв!";
+                    }
+                    break;
+                case 'ножиці':
+                    switch (computerChoice) {
+                        case 'камінь': return "Ти програв!";
+                        case 'ножиці': return "Нічия!";
+                        case 'папір': return "Ти виграв!";
+                    }
+                    break;
+                case 'папір':
+                    switch (computerChoice) {
+                        case 'камінь': return "Ти виграв!";
+                        case 'ножиці': return "Ти програв!";
+                        case 'папір': return "Нічия!";
+                    }
+                    break;
+                default:
+                    return "Неправильний вибір!";
+            }
+        }
+
+        function playGame() {
+            let playerChoice = prompt("Вибери: камінь, ножиці або папір?");
+            if (!playerChoice) {
+                document.getElementById("result").innerHTML = "Гру скасовано!";
+                return;
+            }
+
+            playerChoice = playerChoice.toLowerCase().trim();
+            let computerChoice = getComputerChoice();
+
+            let result = determineWinner(playerChoice, computerChoice);
+
+            document.getElementById("result").innerHTML =
+                "Твій вибір: " + playerChoice + "<br>" +
+                "Вибір комп'ютера: " + computerChoice + "<br>" +
+                result;
+        }
+    </script>
+</body>
+</html>
